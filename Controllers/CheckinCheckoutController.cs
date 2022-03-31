@@ -21,7 +21,7 @@ public class CheckinController : ControllerBase
     try
     {
       Pet pet = _context.Pets.FirstOrDefault(p => p.id == id);
-      pet.checkedInAt = DateTime.Now;
+      pet.checkedInAt = DateTime.Now; // changes the checkIn time to now
       _context.Update(pet);
       _context.SaveChanges();
       return pet;
@@ -38,8 +38,8 @@ public class CheckinController : ControllerBase
   {
     try
     {
-      Pet pet = _context.Pets.FirstOrDefault(p => p.id == id);
-      pet.checkedInAt = null;
+      Pet pet = _context.Pets.FirstOrDefault(p => p.id == id); // get the pet
+      pet.checkedInAt = null; // change checkIn time to null when checked out
       _context.Update(pet);
       _context.SaveChanges();
       return pet;
