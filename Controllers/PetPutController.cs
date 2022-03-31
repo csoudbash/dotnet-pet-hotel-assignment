@@ -23,7 +23,7 @@ namespace pet_hotel.Controllers
         }
 
     [HttpPut("{id}")]
-        public IActionResult Put(int id, Pet pet){
+        public ActionResult Put(int id, Pet pet){
           if (id != pet.id)
           {
             return BadRequest();
