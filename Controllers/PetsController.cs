@@ -20,7 +20,7 @@ namespace pet_hotel.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Pet> GetAll()
+        public ActionResult<List<Pet>> GetAll()
         {
             Console.WriteLine("Get all pets");
             return _context.Pets;
