@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace pet_hotel.Controllers
 {
   [ApiController]
-  [Route("api/[controller]")]
+  [Route("api/petowners")]
   public class PetOwnersController : ControllerBase
   {
     private readonly ApplicationContext _context;
@@ -18,32 +18,20 @@ namespace pet_hotel.Controllers
     }
 
     [HttpGet]
-    public ActionResult<List<PetOwner>> Get()
+    public IEnumerable<PetOwner> Get()
     {
-      try
-      {
-        return _context.PetOwners;
-      }
-      catch (Exception err)
-      {
-        Console.WriteLine("Error in get petowners", err);
-        return NotFound();
-      }
+      return _context.PetOwners;
     }
 
     [HttpGet("{id}")]
     public ActionResult<PetOwner> Get(int id)
     {
-      try
+      PetOwner petOwner = _context.PetOwners.FirstOrDefault(po => po.id == id);
+      if (petOwner is null)
       {
-        PetOwner petOwner = _context.PetOwners.FristOrDefault(po => po.id == id);
-        return petOwner;
+        return StatusCode(204);
       }
-      catch (Exception err)
-      {
-        Console.WriteLine(err);
-        return NotFound();
-      }
+      return petOwner;
     }
   }
 }
