@@ -11,22 +11,22 @@ using Microsoft.EntityFrameworkCore;
 namespace pet_hotel.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class PetsController : ControllerBase
+    [Route("api/pets")]
+    public class PetsPostController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        public PetsController(ApplicationContext context) {
+        public PetsPostController(ApplicationContext context) {
             _context = context;
         }
 
         [HttpPost]
-        public IActionResult Post(Pets pets){
-          _context.Add(pets);
+        public IActionResult Post(Pet pet){
+          _context.Add(pet);
           _context.SaveChanges();
           return CreatedAtAction(nameof(Post),
-                                     new {id = pets.id}, pets);
+                                     new {id = pet.id}, pet);
 
-                                     
+
         }
     }
 }
