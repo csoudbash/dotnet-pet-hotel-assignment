@@ -10,7 +10,7 @@ namespace pet_hotel.Models
     public int id { get; set; }
     public string name { get; set; }
 
-    public DateTime checkedInAt { get; set; }
+    public DateTime? checkedInAt { get; set; }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public PetBreedType breed { get; set; }
