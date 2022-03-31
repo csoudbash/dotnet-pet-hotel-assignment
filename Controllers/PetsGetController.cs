@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace pet_hotel.Controllers
 {
-<<<<<<< HEAD
     [ApiController]
     [Route("api/pets")]
     public class PetsGetController : ControllerBase
@@ -21,17 +20,6 @@ namespace pet_hotel.Controllers
         {
             _context = context;
         }
-=======
-  [ApiController]
-  [Route("api/pets")]
-  public class PetsController : ControllerBase
-  {
-    private readonly ApplicationContext _context;
-    public PetsController(ApplicationContext context)
-    {
-      _context = context;
-    }
->>>>>>> a06de5ce48b6aeaa9bc2644901d1148ddadd5fb9
 
     [HttpGet]
     public IEnumerable<Pet> GetAll()
