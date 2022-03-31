@@ -7,24 +7,48 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using pet_hotel.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace pet_hotel.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/pets")]
     public class PetsController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        public PetsController(ApplicationContext context) {
+        public PetsController(ApplicationContext context)
+        {
             _context = context;
+        }
+
+        [HttpGet]
+        public IEnumerable<Pet> GetAll()
+        {
+            Console.WriteLine("Get all pets");
+
+            return _context.Pets
+                .Include( PetOwner => PetOwner.OwnedBy);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Pet> GetById(int id)
+        {
+            Pet pet = _context.Pets.Include( PetOwner => PetOwner.OwnedBy)
+                .SingleOrDefault(pet => pet.id == id);
+
+            if (pet is null)
+            {
+                return StatusCode(418); // send status 418
+            }
+            return pet;
         }
 
         // This is just a stub for GET / to prevent any weird frontend errors that 
         // occur when the route is missing in this controller
-        [HttpGet]
-        public IEnumerable<Pet> GetPets() {
-            return new List<Pet>();
-        }
+        // [HttpGet]
+        // public IEnumerable<Pet> GetPets() {
+        //     return new List<Pet>();
+        // }
 
         // [HttpGet]
         // [Route("test")]
