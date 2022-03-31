@@ -13,10 +13,10 @@ namespace pet_hotel.Controllers
 {
     [ApiController]
     [Route("api/pets")]
-    public class PetsController : ControllerBase
+    public class PetsGetController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        public PetsController(ApplicationContext context)
+        public PetsGetController(ApplicationContext context)
         {
             _context = context;
         }
