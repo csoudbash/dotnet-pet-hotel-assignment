@@ -7,20 +7,43 @@ using Microsoft.EntityFrameworkCore;
 
 namespace pet_hotel.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class PetOwnersController : ControllerBase
+  [ApiController]
+  [Route("api/[controller]")]
+  public class PetOwnersController : ControllerBase
+  {
+    private readonly ApplicationContext _context;
+    public PetOwnersController(ApplicationContext context)
     {
-        private readonly ApplicationContext _context;
-        public PetOwnersController(ApplicationContext context) {
-            _context = context;
-        }
-
-        // This is just a stub for GET / to prevent any weird frontend errors that 
-        // occur when the route is missing in this controller
-        [HttpGet]
-        public IEnumerable<PetOwner> GetPets() {
-            return new List<PetOwner>();
-        }
+      _context = context;
     }
+
+    [HttpGet]
+    public ActionResult<List<PetOwner>> Get()
+    {
+      try
+      {
+        return _context.PetOwners;
+      }
+      catch (Exception err)
+      {
+        Console.WriteLine("Error in get petowners", err);
+        return NotFound();
+      }
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<PetOwner> Get(int id)
+    {
+      try
+      {
+        PetOwner petOwner = _context.PetOwners.FristOrDefault(po => po.id == id);
+        return petOwner;
+      }
+      catch (Exception err)
+      {
+        Console.WriteLine(err);
+        return NotFound();
+      }
+    }
+  }
 }
