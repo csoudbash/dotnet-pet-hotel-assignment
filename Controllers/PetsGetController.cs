@@ -7,32 +7,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using pet_hotel.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace pet_hotel.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/pets")]
     public class PetsController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        public PetsController(ApplicationContext context) {
+        public PetsController(ApplicationContext context)
+        {
             _context = context;
         }
 
         [HttpGet]
-        public ActionResult<List<Pet>> GetAll()
+        public IEnumerable<Pet> GetAll()
         {
             Console.WriteLine("Get all pets");
-            return _context.Pets;
+
+            return _context.Pets
+                .Include( PetOwner => PetOwner.OwnedBy);
         }
 
         [HttpGet("{id}")]
         public ActionResult<Pet> GetById(int id)
         {
-            Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
+            Pet pet = _context.Pets.Include( PetOwner => PetOwner.OwnedBy)
+                .SingleOrDefault(pet => pet.id == id);
 
-            if(pet is null){
-                return ImATeapot(); // send status 418
+            if (pet is null)
+            {
+                return StatusCode(418); // send status 418
             }
             return pet;
         }

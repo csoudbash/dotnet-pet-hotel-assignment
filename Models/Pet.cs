@@ -549,7 +549,7 @@ Zerdava,
         [ForeignKey ("petOwner")]
          public int petOwnerId {get; set;}
 
-         public PetOwner petOwner {get; set;}
+         public PetOwner OwnedBy {get; set;}
 
 
     }
