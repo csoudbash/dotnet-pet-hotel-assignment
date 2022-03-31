@@ -538,12 +538,13 @@ Zerdava,
         public int id {get; set;}
         public string name {get; set;}
        
-        public string color {get; set;}
-        public string breed {get; set;}
+        public DateTime checkedInAt {get; set;}
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public PetBreedType type {get; set;}
-        public PetColorType type {get; set;}
+        public PetBreedType breed {get; set;}
+        
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public PetColorType color {get; set;}
 
         [ForeignKey ("petOwner")]
          public int petOwnerId {get; set;}
