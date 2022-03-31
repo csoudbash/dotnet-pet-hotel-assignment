@@ -532,7 +532,9 @@ Zerdava,
         Yellow,
         Cream,
         Blue,
-        Grey
+        Grey,
+        Tricolor,
+        Spotted
     }
     public class Pet {
         public int id {get; set;}
