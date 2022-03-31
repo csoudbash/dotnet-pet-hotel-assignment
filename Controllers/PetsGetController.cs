@@ -27,13 +27,13 @@ namespace pet_hotel.Controllers
       Console.WriteLine("Get all pets");
 
       return _context.Pets
-          .Include(PetOwner => PetOwner.OwnedBy);
+          .Include(PetOwner => PetOwner.petOwner);
     }
 
     [HttpGet("{id}")]
     public ActionResult<Pet> GetById(int id)
     {
-      Pet pet = _context.Pets.Include(PetOwner => PetOwner.OwnedBy)
+      Pet pet = _context.Pets.Include(PetOwner => PetOwner.petOwner)
           .SingleOrDefault(pet => pet.id == id);
 
       if (pet is null)
