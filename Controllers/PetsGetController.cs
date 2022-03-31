@@ -11,15 +11,15 @@ using Microsoft.AspNetCore.Http;
 
 namespace pet_hotel.Controllers
 {
-  [ApiController]
-  [Route("api/pets")]
-  public class PetsController : ControllerBase
-  {
-    private readonly ApplicationContext _context;
-    public PetsController(ApplicationContext context)
+    [ApiController]
+    [Route("api/pets")]
+    public class PetsGetController : ControllerBase
     {
-      _context = context;
-    }
+        private readonly ApplicationContext _context;
+        public PetsGetController(ApplicationContext context)
+        {
+            _context = context;
+        }
 
     [HttpGet]
     public IEnumerable<Pet> GetAll()
