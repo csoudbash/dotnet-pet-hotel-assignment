@@ -12,7 +12,7 @@ namespace pet_hotel.Controllers
 {
     [ApiController]
     [Route("api/petowners")]
-    public class PetOwnersDeleteController : ControllerBase
+    public class PetOwnerDeleteController : ControllerBase
     {
         private readonly ApplicationContext _context;
         public PetOwnerDeleteController(ApplicationContext context) {
