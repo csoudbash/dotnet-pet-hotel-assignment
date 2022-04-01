@@ -11,15 +11,15 @@ using Microsoft.AspNetCore.Http;
 
 namespace pet_hotel.Controllers
 {
-  [ApiController]
-  [Route("api/pets")]
-  public class PetsController : ControllerBase
-  {
-    private readonly ApplicationContext _context;
-    public PetsController(ApplicationContext context)
+    [ApiController]
+    [Route("api/pets")]
+    public class PetsGetController : ControllerBase
     {
-      _context = context;
-    }
+        private readonly ApplicationContext _context;
+        public PetsGetController(ApplicationContext context)
+        {
+            _context = context;
+        }
 
     [HttpGet]
     public IEnumerable<Pet> GetAll()
@@ -27,13 +27,13 @@ namespace pet_hotel.Controllers
       Console.WriteLine("Get all pets");
 
       return _context.Pets
-          .Include(PetOwner => PetOwner.OwnedBy);
+          .Include(PetOwner => PetOwner.petOwner);
     }
 
     [HttpGet("{id}")]
     public ActionResult<Pet> GetById(int id)
     {
-      Pet pet = _context.Pets.Include(PetOwner => PetOwner.OwnedBy)
+      Pet pet = _context.Pets.Include(PetOwner => PetOwner.petOwner)
           .SingleOrDefault(pet => pet.id == id);
 
       if (pet is null)
